@@ -2,195 +2,208 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Alles Gute, Mama! 🐘</title>
     <style>
         :root {
-            --soft-pink: #fce4ec;
-            --deep-teal: #264653;
-            --accent-gold: #d4af37;
-            --text-color: #444;
+            --bg: #fdf6f0;
+            --text: #2c3e50;
+            --accent: #d4a373;
+            --white: #ffffff;
         }
+
+        * { box-sizing: border-box; }
 
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--soft-pink);
-            color: var(--text-color);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Verhindert jegliches Scrollen */
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
         }
 
-        /* Elefanten-Animation */
+        /* Elefanten Animation (Bleibt immer sichtbar) */
         .elephant-track {
             position: fixed;
             width: 100%;
-            height: 50px;
-            z-index: 1000;
+            height: 40px;
+            z-index: 100;
             pointer-events: none;
         }
-        .top-track { top: 10px; }
-        .bottom-track { bottom: 10px; }
+        .top-track { top: 15px; }
+        .bottom-track { bottom: 15px; }
 
         .elephant-group {
             position: absolute;
             white-space: nowrap;
-            animation: walk 20s linear infinite;
-            font-size: 20px;
+            animation: walk 25s linear infinite;
         }
-
-        .elephant-group span:nth-child(1) { font-size: 35px; } /* Der große Elefant */
+        .elephant-group span { font-size: 20px; margin-right: 5px; }
+        .elephant-group .big { font-size: 35px; }
 
         @keyframes walk {
-            from { left: -200px; }
-            to { left: 100%; }
+            from { transform: translateX(-200px); }
+            to { transform: translateX(100vw); }
         }
 
-        /* Seiten-Layout */
-        section {
-            min-height: 100vh;
+        /* Container für die Übergänge */
+        .page-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 20px;
             text-align: center;
-            box-sizing: border-box;
-        }
-
-        h1 { font-size: 3rem; color: var(--deep-teal); margin-bottom: 0.5rem; }
-        p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; }
-
-        /* Buttons */
-        .btn {
-            background-color: var(--deep-teal);
-            color: white;
-            padding: 15px 35px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: transform 0.3s, background-color 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .btn:hover {
-            transform: scale(1.05);
-            background-color: #1d353f;
-        }
-
-        /* Diashow */
-        .slideshow-container {
-            position: relative;
-            max-width: 500px;
-            width: 90%;
-            height: 600px;
-            margin-top: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            background: #fff;
-        }
-
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            visibility: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s;
+            z-index: 1;
         }
 
-        .slide.active { opacity: 1; }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
         }
 
-        /* Japanische Weisheit am Ende */
-        .wisdom {
-            font-style: italic;
-            border-top: 1px solid var(--accent-gold);
-            padding-top: 20px;
-            margin-top: 40px;
-            color: var(--deep-teal);
+        /* Inhalts-Styling */
+        h1 { font-size: 2.5rem; margin-bottom: 10px; color: #1a1a1a; }
+        .sub-text { font-size: 1.1rem; color: #555; max-width: 80%; margin-bottom: 30px; }
+
+        /* Großer Button */
+        .next-btn {
+            background: var(--text);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        .next-btn:active { transform: scale(0.95); }
+
+        /* Slideshow Bereich */
+        .diashow-frame {
+            width: 90%;
+            max-width: 400px;
+            aspect-ratio: 3 / 4;
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .kanji {
-            display: block;
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--accent-gold);
+        .slide-img {
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
         }
+        .slide-img.visible { opacity: 1; }
 
+        /* Weisheit Spruch */
+        .wisdom-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .japanese { font-size: 1.8rem; color: var(--accent); display: block; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div class="elephant-track top-track">
         <div class="elephant-group">
-            <span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span>
+            <span class="big">🐘</span><span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span>
         </div>
     </div>
 
-    <section id="page1">
-        <h1>Alles Gute zum Geburtstag, Mama!</h1>
-        <p>Heute dreht sich alles nur um dich. Ich habe eine kleine Reise durch unsere schönsten Momente vorbereitet.</p>
-        <a href="#page2" class="btn">Klick hier für deine Überraschung ✨</a>
-    </section>
-
-    <section id="page2" style="background-color: #fff;">
-        <h2>Unsere Momente</h2>
-        <div class="slideshow-container" id="slideshow">
-            <div class="slide active"><img src="bild1.jpg" alt="Mama 1"></div>
-            <div class="slide"><img src="bild2.jpg" alt="Mama 2"></div>
-            <div class="slide"><img src="bild3.jpg" alt="Mama 3"></div>
-            <div class="slide"><img src="bild4.jpg" alt="Mama 4"></div>
-            <div class="slide"><img src="bild5.jpg" alt="Mama 5"></div>
-            <div class="slide"><img src="bild6.jpg" alt="Mama 6"></div>
-            <div class="slide"><img src="bild7.jpg" alt="Mama 7"></div>
-        </div>
-        <a href="#page3" class="btn">Weiter zum Schlusswort ❤️</a>
-    </section>
-
-    <section id="page3">
-        <h1>Für das neue Lebensjahr...</h1>
-        <p>Danke, dass du immer für mich da bist. Du bist die beste Mama der Welt!</p>
+    <div class="page-container">
         
-        <div class="wisdom">
-            <span class="kanji">日日是好日</span>
-            <p>"Nichi nichi kore kōjitsu"<br>
-            <strong>Jeder Tag ist ein guter Tag.</strong></p>
-            <p style="font-size: 0.9rem; margin-top: 10px;">(Möge jeder Tag deines neuen Lebensjahres ein Geschenk für dich sein.)</p>
-        </div>
-    </section>
+        <section class="page active" id="p1">
+            <h1>Hallo Mama ❤️</h1>
+            <p class="sub-text">Ich habe eine kleine Überraschung für dich vorbereitet. Nimm dir einen Moment Zeit.</p>
+            <button class="next-btn" onclick="goToPage('p2')">Erinnerungen ansehen</button>
+        </section>
+
+        <section class="page" id="p2">
+            <div class="diashow-frame" id="slideshow">
+                </div>
+            <button class="next-btn" onclick="goToPage('p3')">Etwas zum Schluss...</button>
+        </section>
+
+        <section class="page" id="p3">
+            <h1>Alles Gute!</h1>
+            <div class="wisdom-box">
+                <span class="japanese">日日是好日</span>
+                <p><em>"Jeder Tag ist ein guter Tag."</em></p>
+                <p class="sub-text">Möge dein neues Lebensjahr voller solcher Tage sein. Ich hab dich lieb!</p>
+            </div>
+            <button class="next-btn" onclick="goToPage('p1')">Nochmal von vorn</button>
+        </section>
+
+    </div>
 
     <div class="elephant-track bottom-track">
-        <div class="elephant-group" style="animation-delay: -10s;">
-            <span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span>
+        <div class="elephant-group" style="animation-delay: -12s;">
+            <span class="big">🐘</span><span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span>
         </div>
     </div>
 
     <script>
-        // Diashow Logik
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
+        // Bildpfade hier anpassen
+        const images = [
+            'bild1.jpg', 'bild2.jpg', 'bild3.jpg', 
+            'bild4.jpg', 'bild5.jpg', 'bild6.jpg', 'bild7.jpg'
+        ];
 
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        // Seite wechseln Funktion
+        function goToPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
         }
 
-        // Automatische Diashow alle 3.5 Sekunden
-        setInterval(nextSlide, 3500);
+        // Diashow Setup
+        const container = document.getElementById('slideshow');
+        images.forEach((img, index) => {
+            const div = document.createElement('div');
+            div.className = 'slide-img' + (index === 0 ? ' visible' : '');
+            div.style.backgroundImage = `url(${img})`;
+            container.appendChild(div);
+        });
+
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.slide-img');
+
+        setInterval(() => {
+            slides[currentIdx].classList.remove('visible');
+            currentIdx = (currentIdx + 1) % slides.length;
+            slides[currentIdx].classList.add('visible');
+        }, 4000); // 4 Sekunden pro Bild
     </script>
+
 </body>
 </html>
