@@ -7,9 +7,8 @@
     <style>
         :root {
             --bg: #fdf6f0;
-            --text: #2c3e50;
+            --text: #1f4d2e;
             --accent: #d4a373;
-            --white: #ffffff;
         }
 
         * { box-sizing: border-box; }
@@ -19,13 +18,13 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Verhindert jegliches Scrollen */
-            font-family: 'Inter', -apple-system, sans-serif;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
         }
 
-        /* Elefanten Animation (Bleibt immer sichtbar) */
+        /* Elefanten-Parade */
         .elephant-track {
             position: fixed;
             width: 100%;
@@ -45,21 +44,13 @@
         .elephant-group .big { font-size: 35px; }
 
         @keyframes walk {
-            from { transform: translateX(-200px); }
+            from { transform: translateX(-250px); }
             to { transform: translateX(100vw); }
         }
 
-        /* Container für die Übergänge */
-        .page-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
+        /* Page Transitions */
         .page {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             display: flex;
@@ -70,45 +61,38 @@
             text-align: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.8s ease, visibility 0.8s;
-            z-index: 1;
+            transition: opacity 0.8s ease;
         }
 
         .page.active {
             opacity: 1;
             visibility: visible;
-            z-index: 10;
         }
 
-        /* Inhalts-Styling */
-        h1 { font-size: 2.5rem; margin-bottom: 10px; color: #1a1a1a; }
-        .sub-text { font-size: 1.1rem; color: #555; max-width: 80%; margin-bottom: 30px; }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        .sub-text { font-size: 1rem; max-width: 300px; margin-bottom: 30px; line-height: 1.4; }
 
-        /* Großer Button */
         .next-btn {
             background: var(--text);
             color: white;
             border: none;
-            padding: 16px 40px;
+            padding: 16px 35px;
             border-radius: 50px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .next-btn:active { transform: scale(0.95); }
 
-        /* Slideshow Bereich */
+        /* Diashow */
         .diashow-frame {
             width: 90%;
-            max-width: 400px;
-            aspect-ratio: 3 / 4;
+            max-width: 380px;
+            aspect-ratio: 4 / 5;
             background: white;
             padding: 10px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
         }
@@ -120,16 +104,11 @@
             background-position: center;
             border-radius: 12px;
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 1.2s ease-in-out;
         }
         .slide-img.visible { opacity: 1; }
 
-        /* Weisheit Spruch */
-        .wisdom-box {
-            margin-top: 20px;
-            padding: 20px;
-            border-top: 1px solid #ddd;
-        }
+        .wisdom-box { margin-top: 20px; }
         .japanese { font-size: 1.8rem; color: var(--accent); display: block; margin-bottom: 10px; }
     </style>
 </head>
@@ -142,29 +121,25 @@
     </div>
 
     <div class="page-container">
-        
         <section class="page active" id="p1">
-            <h1>Hallo Mama ❤️</h1>
-            <p class="sub-text">Ich habe eine kleine Überraschung für dich vorbereitet. Nimm dir einen Moment Zeit.</p>
-            <button class="next-btn" onclick="goToPage('p2')">Erinnerungen ansehen</button>
+            <h1>Alles Liebe, Mama! ❤️</h1>
+            <p class="sub-text">Ich hab ein paar Fotos von uns gesammelt. Klick auf den Button für eine kleine Zeitreise.</p>
+            <button class="next-btn" onclick="goToPage('p2')">Fotos ansehen ✨</button>
         </section>
 
         <section class="page" id="p2">
-            <div class="diashow-frame" id="slideshow">
-                </div>
-            <button class="next-btn" onclick="goToPage('p3')">Etwas zum Schluss...</button>
+            <div class="diashow-frame" id="slideshow"></div>
+            <button class="next-btn" onclick="goToPage('p3')" style="margin-top: 25px;">Weiter ❤️</button>
         </section>
 
         <section class="page" id="p3">
-            <h1>Alles Gute!</h1>
             <div class="wisdom-box">
                 <span class="japanese">日日是好日</span>
-                <p><em>"Jeder Tag ist ein guter Tag."</em></p>
-                <p class="sub-text">Möge dein neues Lebensjahr voller solcher Tage sein. Ich hab dich lieb!</p>
+                <p><strong>"Jeder Tag ist ein guter Tag."</strong></p>
+                <p class="sub-text">Genieße dein neues Lebensjahr in vollen Zügen. Hab dich lieb!</p>
             </div>
             <button class="next-btn" onclick="goToPage('p1')">Nochmal von vorn</button>
         </section>
-
     </div>
 
     <div class="elephant-track bottom-track">
@@ -174,36 +149,37 @@
     </div>
 
     <script>
-        // Bildpfade hier anpassen
+        const baseUrl = "https://raw.githubusercontent.com/moritzgauss/fuermama/refs/heads/main/";
         const images = [
-            'bild1.jpg', 'bild2.jpg', 'bild3.jpg', 
-            'bild4.jpg', 'bild5.jpg', 'bild6.jpg', 'bild7.jpg'
+            "9f1b2f4b-e798-457f-b9a0-44e76614b61e.jpeg",
+            "IMG-20180921-WA0033.jpeg",
+            "IMG_1999.jpeg",
+            "IMG_20200510_124452_652.jpeg",
+            "IMG_2621.jpeg",
+            "IMG_4064.jpeg",
+            "IMG_9717.png"
         ];
 
-        // Seite wechseln Funktion
         function goToPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
         }
 
-        // Diashow Setup
         const container = document.getElementById('slideshow');
         images.forEach((img, index) => {
             const div = document.createElement('div');
             div.className = 'slide-img' + (index === 0 ? ' visible' : '');
-            div.style.backgroundImage = `url(${img})`;
+            div.style.backgroundImage = `url('${baseUrl}${img}')`;
             container.appendChild(div);
         });
 
         let currentIdx = 0;
         const slides = document.querySelectorAll('.slide-img');
-
         setInterval(() => {
             slides[currentIdx].classList.remove('visible');
             currentIdx = (currentIdx + 1) % slides.length;
             slides[currentIdx].classList.add('visible');
-        }, 4000); // 4 Sekunden pro Bild
+        }, 3500);
     </script>
-
 </body>
 </html>
