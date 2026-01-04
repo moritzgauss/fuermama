@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alles Gute, Mama! 🐘</title>
+    <style>
+        :root {
+            --soft-pink: #fce4ec;
+            --deep-teal: #264653;
+            --accent-gold: #d4af37;
+            --text-color: #444;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--soft-pink);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Elefanten-Animation */
+        .elephant-track {
+            position: fixed;
+            width: 100%;
+            height: 50px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        .top-track { top: 10px; }
+        .bottom-track { bottom: 10px; }
+
+        .elephant-group {
+            position: absolute;
+            white-space: nowrap;
+            animation: walk 20s linear infinite;
+            font-size: 20px;
+        }
+
+        .elephant-group span:nth-child(1) { font-size: 35px; } /* Der große Elefant */
+
+        @keyframes walk {
+            from { left: -200px; }
+            to { left: 100%; }
+        }
+
+        /* Seiten-Layout */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 { font-size: 3rem; color: var(--deep-teal); margin-bottom: 0.5rem; }
+        p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--deep-teal);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.3s, background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #1d353f;
+        }
+
+        /* Diashow */
+        .slideshow-container {
+            position: relative;
+            max-width: 500px;
+            width: 90%;
+            height: 600px;
+            margin-top: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: #fff;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active { opacity: 1; }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Japanische Weisheit am Ende */
+        .wisdom {
+            font-style: italic;
+            border-top: 1px solid var(--accent-gold);
+            padding-top: 20px;
+            margin-top: 40px;
+            color: var(--deep-teal);
+        }
+
+        .kanji {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="elephant-track top-track">
+        <div class="elephant-group">
+            <span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span>
+        </div>
+    </div>
+
+    <section id="page1">
+        <h1>Alles Gute zum Geburtstag, Mama!</h1>
+        <p>Heute dreht sich alles nur um dich. Ich habe eine kleine Reise durch unsere schönsten Momente vorbereitet.</p>
+        <a href="#page2" class="btn">Klick hier für deine Überraschung ✨</a>
+    </section>
+
+    <section id="page2" style="background-color: #fff;">
+        <h2>Unsere Momente</h2>
+        <div class="slideshow-container" id="slideshow">
+            <div class="slide active"><img src="bild1.jpg" alt="Mama 1"></div>
+            <div class="slide"><img src="bild2.jpg" alt="Mama 2"></div>
+            <div class="slide"><img src="bild3.jpg" alt="Mama 3"></div>
+            <div class="slide"><img src="bild4.jpg" alt="Mama 4"></div>
+            <div class="slide"><img src="bild5.jpg" alt="Mama 5"></div>
+            <div class="slide"><img src="bild6.jpg" alt="Mama 6"></div>
+            <div class="slide"><img src="bild7.jpg" alt="Mama 7"></div>
+        </div>
+        <a href="#page3" class="btn">Weiter zum Schlusswort ❤️</a>
+    </section>
+
+    <section id="page3">
+        <h1>Für das neue Lebensjahr...</h1>
+        <p>Danke, dass du immer für mich da bist. Du bist die beste Mama der Welt!</p>
+        
+        <div class="wisdom">
+            <span class="kanji">日日是好日</span>
+            <p>"Nichi nichi kore kōjitsu"<br>
+            <strong>Jeder Tag ist ein guter Tag.</strong></p>
+            <p style="font-size: 0.9rem; margin-top: 10px;">(Möge jeder Tag deines neuen Lebensjahres ein Geschenk für dich sein.)</p>
+        </div>
+    </section>
+
+    <div class="elephant-track bottom-track">
+        <div class="elephant-group" style="animation-delay: -10s;">
+            <span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span><span>🐘</span>
+        </div>
+    </div>
+
+    <script>
+        // Diashow Logik
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Automatische Diashow alle 3.5 Sekunden
+        setInterval(nextSlide, 3500);
+    </script>
+</body>
+</html>
